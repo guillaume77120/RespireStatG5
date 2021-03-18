@@ -1,4 +1,5 @@
 package vue;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -35,14 +36,15 @@ public class FenetrePrincipale extends JFrame{
 		File f;
 		String message="";
         do {
-        	//csvPath = JOptionPane.showInputDialog( "Entrez le chemin vers le fichier : "+csvFileName );
-        	csvPath = "C:\\Users\\gbout\\eclipse-workspace\\RespireStatEtu";
-			f = new File(csvPath+"/"+csvFileName);
-			if(!f.exists())
-				message = "Le fichier n'a pas été trouvé.";
-			else
-				message = "Le fichier a été trouvé.";
-			JOptionPane.showMessageDialog(null, message+"\n"+csvPath+"/"+csvFileName);	
+        	// csvPath = JOptionPane.showInputDialog( "Entrez le chemin vers le fichier : "+csvFileName );
+        	 csvPath = "C:\\Users\\julien";
+        	f = new File(csvPath+"/"+csvFileName);
+		//	 A REMETTRE if(!f.exists())
+		//	 A REMETTRE	message = "Le fichier n'a pas été trouvé.";
+			// A REMETTRE else
+			// A REMETTRE	message = "Le fichier a été trouvé.";
+			// A REMETTRE JOptionPane.showMessageDialog(null, message+"\n"+csvPath+"/"+csvFileName);	
+			// A REMETTRE	modification page(cadre)
         }while(!f.exists());
 		ConvertCSV.chargerEtablissements(csvPath+"/"+csvFileName);
 		
@@ -53,6 +55,7 @@ public class FenetrePrincipale extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(buildContentPaneHomePage());
 	}
+	//
 	private JPanel buildContentPaneHomePage(){
 		System.out.println("Build content pane");
 		JPanel panel = new JPanel();
@@ -97,7 +100,8 @@ public class FenetrePrincipale extends JFrame{
 				Etablissement[] etabs = new Etablissement[3];
 				etabs[0] = etabNO2;
 				etabs[1] = etabPM10;
-				etabs[2] = etabPM25;tab1 = new TableauStat1(etabs, annee);
+				etabs[2] = etabPM25;
+				tab1 = new TableauStat1(etabs, annee);
 
 				table = new JTable(tab1);
 				spane =new JScrollPane(table);
@@ -108,14 +112,16 @@ public class FenetrePrincipale extends JFrame{
 				table.setPreferredScrollableViewportSize(table.getPreferredSize());
 				table.setFillsViewportHeight(true);
 
-				//onglet2.add(labelTableau,c);
+				onglet2.add(labelTableau,c);
 				onglet2.add(spane,c);
 				c.gridy++;
 			}
 			
 		}
+		
 
-		onglets.addTab("Les plus pollués", onglet2);
+
+		onglets.addTab("Les plus polluants", onglet2);
 
 		//ONGLET 3
 		JPanel onglet3 = new JPanel();
@@ -143,17 +149,29 @@ public class FenetrePrincipale extends JFrame{
 		JPanel onglet4 = new JPanel();
 		
 		//TODO Créer les 3 HashMap
+
+		HashMap<String, Double> moyenneDepartementNO2 = new HashMap<String, Double>();
+		HashMap<String, Double> moyenneDepartementPM10 = new HashMap<String, Double>();
+		HashMap<String, Double> moyenneDepartementPM25 = new HashMap<String, Double>();
+		
 		//TODO Parcourir la liste des départements pour mettre dans les 3 HashMap le département (clé) et la moyenne de chaque polluant (valeur)
+		for(String departement : ConvertCSV.listeDepartements) {
+			moyenneDepartementNO2.put(departement, StatEtab.getMoyennePolluantNO2Dpt(ConvertCSV.listeEtab, departement, 2017));
+			moyenneDepartementPM10.put(departement, StatEtab.getMoyennePolluantPM10Dpt(ConvertCSV.listeEtab, departement, 2017));
+			moyenneDepartementPM25.put(departement, StatEtab.getMoyennePolluantPM25Dpt(ConvertCSV.listeEtab, departement, 2017));
+		}
 		//TODO Créer un objet TableauStat3 dans lequel vous met
+		TableauStat3 tab3 = new TableauStat3( moyenneDepartementNO2,  moyenneDepartementPM10, moyenneDepartementPM25);
 
 
 		//TODO Décommenter les lignes suivantes
-		//table = new JTable(tab3);
-		//spane = new JScrollPane(table);
+		table = new JTable(tab3);
+		spane = new JScrollPane(table);
 
-		//onglet4.add(spane);
+		onglet4.add(spane);
 
-		//onglets.addTab("Moyenne par département 2017", onglet4);
+		
+		onglets.addTab("Moyenne par d�partement 2017", onglet4);
 
 
 		panel.add(onglets);

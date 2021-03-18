@@ -26,7 +26,7 @@ public class TableauStat1 extends AbstractTableModel{
 
 	@Override
 	public int getRowCount() {
-		return 5;
+		return 4;
 	}
 	
 	@Override
@@ -73,12 +73,21 @@ public class TableauStat1 extends AbstractTableModel{
 				return etabs[columnIndex-1].getLieu().getVille();
 
 			case 3:
-				// DÃ©partement
+				// Département
 				return etabs[columnIndex-1].getLieu().getDepartement();
 
 			case 4:
 				// PM25
-				return etabs[columnIndex-1].getPollutionNO2(annee);
+				 switch(columnIndex-1) {
+				 case 0:
+	                    return etabs[columnIndex-1].getPollutionNO2(annee);
+
+				  case 1:
+	                    return etabs[columnIndex-1].getPollutionPM10(annee);
+	                    
+				  case 2:
+	                    return etabs[columnIndex-1].getPollutionPM25(annee);
+	                }
 
 			default:
 				throw new IllegalArgumentException();

@@ -1,6 +1,7 @@
 package controleur;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import model.Etablissement;
 
@@ -128,10 +129,16 @@ public class StatEtab {
 	 * @return L'établissement le plus polluant au N02
 	 * Flavie Tonon
 	 */
-	public static Etablissement getPlusPolluantNO2(ArrayList<Etablissement> l, int annee) {
-		//TODO Compléter getPlusPolluantNO2 
+	public static Etablissement  getPlusPolluantNO2(ArrayList<Etablissement> l, int annee) {
+		//TODO Compléter getPlusPolluantNO2 -
+		for(Etablissement e : l) {	
+			e.getPollutionNO2(annee);
+			
+		}
 		return null;
-	}
+		}
+	
+	
 	/**
 	 * Trouve l'établissement le plus polluant au PM10 sur une année
 	 * @param l La liste des établissements
@@ -141,6 +148,9 @@ public class StatEtab {
 	 */
 	public static Etablissement getPlusPolluantPM10(ArrayList<Etablissement> l, int annee) {
 		//TODO Compléter getPlusPolluantPM10 
+		for(Etablissement e : l) {
+			e.getPollutionPM10(annee);
+		}
 		return null;
 	}
 	/**
@@ -152,6 +162,9 @@ public class StatEtab {
 	 */
 	public static Etablissement getPlusPolluantPM25(ArrayList<Etablissement> l, int annee) {
 		//TODO Compléter getPlusPolluantPM25 
+		for(Etablissement e : l) {
+			e.getPollutionPM25(annee);
+		}
 		return null;
 	}
 }
