@@ -1,8 +1,11 @@
 package controleur;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import model.Etablissement;
+
+import java.util.Collections;
 
 /**
  * Calculs statistiques sur les données de pollution des 
@@ -129,8 +132,18 @@ public class StatEtab {
 	 * Flavie Tonon
 	 */
 	public static Etablissement getPlusPolluantNO2(ArrayList<Etablissement> l, int annee) {
-		//TODO Compléter getPlusPolluantNO2 
-		return null;
+		//TODO Compléter getPlusPolluantNO2
+		Etablissement max = l.get(0);
+        for(Etablissement e : l){
+            if(e.getPollutionNO2(annee) >= max.getPollutionNO2(annee)){
+                max = e;
+            }
+        }
+        return max;
+				
+			
+		
+		
 	}
 	/**
 	 * Trouve l'établissement le plus polluant au PM10 sur une année
@@ -141,7 +154,13 @@ public class StatEtab {
 	 */
 	public static Etablissement getPlusPolluantPM10(ArrayList<Etablissement> l, int annee) {
 		//TODO Compléter getPlusPolluantPM10 
-		return null;
+		Etablissement max = l.get(0);
+        for(Etablissement e : l){
+            if(e.getPollutionPM10(annee) >= max.getPollutionPM10(annee)){
+                max = e;
+            }
+        }
+        return max;
 	}
 	/**
 	 * Trouve l'établissement le plus polluant au PM25 sur une année
@@ -152,6 +171,12 @@ public class StatEtab {
 	 */
 	public static Etablissement getPlusPolluantPM25(ArrayList<Etablissement> l, int annee) {
 		//TODO Compléter getPlusPolluantPM25 
-		return null;
-	}
+		Etablissement max = l.get(0);
+        for(Etablissement e : l){
+            if(e.getPollutionPM25(annee) >= max.getPollutionPM25(annee)){
+                max = e;
+            }
+        }
+        return max;
+	}	    	
 }

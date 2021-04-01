@@ -39,15 +39,15 @@ public class FenetrePrincipale extends JFrame{
         	csvPath = "C:\\Users\\gbout\\eclipse-workspace\\RespireStatEtu";
 			f = new File(csvPath+"/"+csvFileName);
 			if(!f.exists())
-				message = "Le fichier n'a pas Ã©tÃ© trouvÃ©.";
+				message = "Le fichier n'a pas été trouvé.";
 			else
-				message = "Le fichier a Ã©tÃ© trouvÃ©.";
+				message = "Le fichier a été trouvé.";
 			JOptionPane.showMessageDialog(null, message+"\n"+csvPath+"/"+csvFileName);	
         }while(!f.exists());
 		ConvertCSV.chargerEtablissements(csvPath+"/"+csvFileName);
 		
 		setTitle("RespireStat");
-		setSize(960,720);
+		setSize(1020,1020);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,7 +60,7 @@ public class FenetrePrincipale extends JFrame{
 
 		//ONGLETS
 		JTabbedPane onglets = new JTabbedPane(SwingConstants.TOP);
-		onglets.setPreferredSize(new Dimension(900,680));
+		onglets.setPreferredSize(new Dimension(1000,1000));
 
 		//ONGLET 1
 		JPanel onglet1 = new JPanel();
@@ -104,7 +104,7 @@ public class FenetrePrincipale extends JFrame{
 
 				table.setCellSelectionEnabled(false);
 
-				table.setPreferredSize(new Dimension(500,80));
+				table.setPreferredSize(new Dimension(500,95));
 				table.setPreferredScrollableViewportSize(table.getPreferredSize());
 				table.setFillsViewportHeight(true);
 
@@ -115,52 +115,214 @@ public class FenetrePrincipale extends JFrame{
 			
 		}
 
-		onglets.addTab("Les plus polluÃ©s", onglet2);
+		onglets.addTab("Les plus polluants", onglet2);
 
 		//ONGLET 3
-		JPanel onglet3 = new JPanel();
+				JPanel onglet3 = new JPanel();
 
-		HashMap<String, Double> moyenneVillesNO2 = new HashMap<String, Double>();
-		HashMap<String, Double> moyenneVillesPM10 = new HashMap<String, Double>();
-		HashMap<String, Double> moyenneVillesPM25 = new HashMap<String, Double>();
-		for(String ville : ConvertCSV.listeVilles) {
-			moyenneVillesNO2.put(ville, StatEtab.getMoyennePolluantNO2Ville(ConvertCSV.listeEtab, ville, 2017));
-			moyenneVillesPM10.put(ville, StatEtab.getMoyennePolluantPM10Ville(ConvertCSV.listeEtab, ville, 2017));
-			moyenneVillesPM25.put(ville, StatEtab.getMoyennePolluantPM25Ville(ConvertCSV.listeEtab, ville, 2017));
+				HashMap<String, Double> test = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneVillesPM10 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneVillesPM25 = new HashMap<String, Double>();
+				for(String ville : ConvertCSV.listeVilles) {
+					test.put(ville, StatEtab.getMoyennePolluantNO2Ville(ConvertCSV.listeEtab, ville, 2017));
+					moyenneVillesPM10.put(ville, StatEtab.getMoyennePolluantPM10Ville(ConvertCSV.listeEtab, ville, 2017));
+					moyenneVillesPM25.put(ville, StatEtab.getMoyennePolluantPM25Ville(ConvertCSV.listeEtab, ville, 2017));
+				
+
+				}
+
+				TableauStat2 tab2 = new TableauStat2(test, moyenneVillesPM10,moyenneVillesPM25);
+
+				table = new JTable(tab2);
+				spane = new JScrollPane(table);
+
+				onglet3.add(spane);
+
+				onglets.addTab("Moyenne par ville 2017", onglet3);
+
+				//ONGLET 4
+				JPanel onglet4 = new JPanel();
+				
+
+				HashMap<String, Double> moyenneDepartementNO2 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM10 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM25 = new HashMap<String, Double>();
+			
+				
+				for(String departement : ConvertCSV.listeDepartements) {
+					moyenneDepartementNO2.put(departement, StatEtab.getMoyennePolluantNO2Dpt(ConvertCSV.listeEtab, departement, 2017));
+					moyenneDepartementPM10.put(departement, StatEtab.getMoyennePolluantPM10Dpt(ConvertCSV.listeEtab, departement, 2017));
+					moyenneDepartementPM25.put(departement, StatEtab.getMoyennePolluantPM25Dpt(ConvertCSV.listeEtab, departement, 2017));
+					
+					
+				}
+				
+		TableauStat3 tab3 = new TableauStat3( moyenneDepartementNO2,  moyenneDepartementPM10, moyenneDepartementPM25);
+				
+				table = new JTable(tab3);
+				spane = new JScrollPane(table);
+
+				onglet4.add(spane);
+
+				
+				onglets.addTab("Moyenne par département 2017", onglet4);
+				
+				//ONGLET 5
+				JPanel onglet5 = new JPanel();
+				
+				HashMap<String, Double> moyenneDepartementNO22012 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM102012 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM252012 = new HashMap<String, Double>();
+
+				HashMap<String, Double> moyenneDepartementNO22013 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM102013 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM252013 = new HashMap<String, Double>();
+
+				HashMap<String, Double> moyenneDepartementNO22014 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM102014 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM252014 = new HashMap<String, Double>();
+
+				HashMap<String, Double> moyenneDepartementNO22015 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM102015 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM252015 = new HashMap<String, Double>();
+
+				HashMap<String, Double> moyenneDepartementNO22016 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM102016 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM252016 = new HashMap<String, Double>();
+
+				HashMap<String, Double> moyenneDepartementNO22017 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM102017 = new HashMap<String, Double>();
+				HashMap<String, Double> moyenneDepartementPM252017 = new HashMap<String, Double>();
+			
+					for(int annee=2012; annee<=2017; annee++) 
+						{
+			for(String departement : ConvertCSV.listeDepartements) 
+				
+						{
+				if (annee == 2012) {
+				moyenneDepartementNO22012.put(departement, StatEtab.getMoyennePolluantNO2Dpt(ConvertCSV.listeEtab, departement, annee));
+				moyenneDepartementPM102012.put(departement, StatEtab.getMoyennePolluantPM10Dpt(ConvertCSV.listeEtab, departement, annee));
+				moyenneDepartementPM252012.put(departement, StatEtab.getMoyennePolluantPM25Dpt(ConvertCSV.listeEtab, departement, annee));
+				}
+				if (annee == 2013) {
+					moyenneDepartementNO22013.put(departement, StatEtab.getMoyennePolluantNO2Dpt(ConvertCSV.listeEtab, departement, annee));
+					moyenneDepartementPM102013.put(departement, StatEtab.getMoyennePolluantPM10Dpt(ConvertCSV.listeEtab, departement, annee));
+					moyenneDepartementPM252013.put(departement, StatEtab.getMoyennePolluantPM25Dpt(ConvertCSV.listeEtab, departement, annee));
+					}
+				if (annee == 2014) {
+					moyenneDepartementNO22014.put(departement, StatEtab.getMoyennePolluantNO2Dpt(ConvertCSV.listeEtab, departement, annee));
+					moyenneDepartementPM102014.put(departement, StatEtab.getMoyennePolluantPM10Dpt(ConvertCSV.listeEtab, departement, annee));
+					moyenneDepartementPM252014.put(departement, StatEtab.getMoyennePolluantPM25Dpt(ConvertCSV.listeEtab, departement, annee));
+					}
+				if (annee == 2015) {
+					moyenneDepartementNO22015.put(departement, StatEtab.getMoyennePolluantNO2Dpt(ConvertCSV.listeEtab, departement, annee));
+					moyenneDepartementPM102015.put(departement, StatEtab.getMoyennePolluantPM10Dpt(ConvertCSV.listeEtab, departement, annee));
+					moyenneDepartementPM252015.put(departement, StatEtab.getMoyennePolluantPM25Dpt(ConvertCSV.listeEtab, departement, annee));
+					}
+				if (annee == 2016) {
+					moyenneDepartementNO22016.put(departement, StatEtab.getMoyennePolluantNO2Dpt(ConvertCSV.listeEtab, departement, annee));
+					moyenneDepartementPM102016.put(departement, StatEtab.getMoyennePolluantPM10Dpt(ConvertCSV.listeEtab, departement, annee));
+					moyenneDepartementPM252016.put(departement, StatEtab.getMoyennePolluantPM25Dpt(ConvertCSV.listeEtab, departement, annee));
+					}
+				if (annee == 2017) {
+					moyenneDepartementNO22017.put(departement, StatEtab.getMoyennePolluantNO2Dpt(ConvertCSV.listeEtab, departement, annee));
+					moyenneDepartementPM102017.put(departement, StatEtab.getMoyennePolluantPM10Dpt(ConvertCSV.listeEtab, departement, annee));
+					moyenneDepartementPM252017.put(departement, StatEtab.getMoyennePolluantPM25Dpt(ConvertCSV.listeEtab, departement, annee));
+					}
+						}	
+			if (annee == 2012) {
+			TableauStat4 tab2012 = new TableauStat4( moyenneDepartementNO22012,  moyenneDepartementPM102012, moyenneDepartementPM252012,annee);
+			table = new JTable(tab2012);
+			spane = new JScrollPane(table);
+
+			table.setCellSelectionEnabled(false);
+
+			table.setPreferredSize(new Dimension(500,80));
+			table.setPreferredScrollableViewportSize(table.getPreferredSize());
+			table.setFillsViewportHeight(true);
+
+				onglet5.add(spane);
+				
+			}
+			if (annee == 2013) {
+				TableauStat4 tab2013 = new TableauStat4( moyenneDepartementNO22013,  moyenneDepartementPM102013, moyenneDepartementPM252013,annee);
+				table = new JTable(tab2013);
+				spane = new JScrollPane(table);
+				table.setCellSelectionEnabled(false);
+
+				table.setPreferredSize(new Dimension(500,80));
+				table.setPreferredScrollableViewportSize(table.getPreferredSize());
+				table.setFillsViewportHeight(true);
+				
+					onglet5.add(spane);
+					
+				}
+			if (annee == 2014) {
+				TableauStat4 tab2014 = new TableauStat4( moyenneDepartementNO22014,  moyenneDepartementPM102014, moyenneDepartementPM252014,annee);
+				table = new JTable(tab2014);
+				spane = new JScrollPane(table);
+
+				table.setCellSelectionEnabled(false);
+
+				table.setPreferredSize(new Dimension(500,80));
+				table.setPreferredScrollableViewportSize(table.getPreferredSize());
+				table.setFillsViewportHeight(true);
+
+					onglet5.add(spane);
+					
+				}
+			if (annee == 2015) {
+				TableauStat4 tab2015 = new TableauStat4( moyenneDepartementNO22015,  moyenneDepartementPM102015, moyenneDepartementPM252015,annee);
+				table = new JTable(tab2015);
+				spane = new JScrollPane(table);
+
+				table.setCellSelectionEnabled(false);
+
+				table.setPreferredSize(new Dimension(500,80));
+				table.setPreferredScrollableViewportSize(table.getPreferredSize());
+				table.setFillsViewportHeight(true);
+
+					onglet5.add(spane);
+					
+				}
+			if (annee == 2016) {
+				TableauStat4 tab2016 = new TableauStat4( moyenneDepartementNO22016,  moyenneDepartementPM102016, moyenneDepartementPM252016,annee);
+				table = new JTable(tab2016);
+				spane = new JScrollPane(table);
+
+				table.setCellSelectionEnabled(false);
+
+				table.setPreferredSize(new Dimension(500,80));
+				table.setPreferredScrollableViewportSize(table.getPreferredSize());
+				table.setFillsViewportHeight(true);
+
+					onglet5.add(spane);
+					
+				}
+			if (annee == 2017) {
+					TableauStat4 tab2017 = new TableauStat4( moyenneDepartementNO22017,  moyenneDepartementPM102017, moyenneDepartementPM252017,annee);
+					table = new JTable(tab2017);
+					spane = new JScrollPane(table);
+
+					table.setCellSelectionEnabled(false);
+
+					table.setPreferredSize(new Dimension(500,80));
+					table.setPreferredScrollableViewportSize(table.getPreferredSize());
+					table.setFillsViewportHeight(true);
+
+						onglet5.add(spane);
+						
+					}
+			
+								onglets.addTab("Moyenne par département par annee", onglet5);
+						}
+				panel.add(onglets);
+
+			
+
+
+
+				return panel;
 		}
 
-		TableauStat2 tab2 = new TableauStat2(moyenneVillesNO2, moyenneVillesPM10,moyenneVillesPM25);
-
-		table = new JTable(tab2);
-		spane = new JScrollPane(table);
-
-		onglet3.add(spane);
-
-		onglets.addTab("Moyenne par ville 2017", onglet3);
-
-		//ONGLET 4
-		//TODO Faire l'onglet 4 : il ressemble beaucoup Ã  l'onglet 3 !
-		JPanel onglet4 = new JPanel();
-		
-		//TODO CrÃ©er les 3 HashMap
-		//TODO Parcourir la liste des dÃ©partements pour mettre dans les 3 HashMap le dÃ©partement (clÃ©) et la moyenne de chaque polluant (valeur)
-		//TODO CrÃ©er un objet TableauStat3 dans lequel vous met
-
-
-		//TODO DÃ©commenter les lignes suivantes
-		//table = new JTable(tab3);
-		//spane = new JScrollPane(table);
-
-		//onglet4.add(spane);
-
-		//onglets.addTab("Moyenne par dÃ©partement 2017", onglet4);
-
-
-		panel.add(onglets);
-
-
-		return panel;
-	}
-
-
-}
+		}
